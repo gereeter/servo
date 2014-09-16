@@ -4540,7 +4540,6 @@ class CGBindingRoot(CGThing):
             'dom::bindings::conversions::{Default, Empty}',
             'dom::bindings::codegen::*',
             'dom::bindings::codegen::Bindings::*',
-            'dom::bindings::codegen::RegisterBindings',
             'dom::bindings::codegen::UnionTypes::*',
             'dom::bindings::error::{FailureUnknown, Fallible, Error, ErrorResult}',
             'dom::bindings::error::throw_dom_exception',

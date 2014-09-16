@@ -5,7 +5,7 @@
 //! Small vectors in various sizes. These store a certain number of elements inline and fall back
 //! to the heap for larger allocations.
 
-use i = std::mem::init;
+use std::mem::init as i;
 use std::cmp;
 use std::intrinsics;
 use std::kinds::marker::ContravariantLifetime;
@@ -57,7 +57,7 @@ trait SmallVecPrivate<T> {
     unsafe fn set_ptr(&mut self, new_ptr: *mut T);
 }
 
-pub trait SmallVec<T> : SmallVecPrivate<T> {
+pub trait SmallVec<T> : SmallVecPrivate<T> where T: 'static {
     fn inline_size(&self) -> uint;
     fn len(&self) -> uint;
     fn cap(&self) -> uint;
@@ -300,7 +300,7 @@ pub struct SmallVecMoveIterator<'a,T> {
     lifetime: ContravariantLifetime<'a>,
 }
 
-impl<'a,T> Iterator<T> for SmallVecMoveIterator<'a,T> {
+impl<'a, T: 'static> Iterator<T> for SmallVecMoveIterator<'a,T> {
     #[inline]
     fn next(&mut self) -> Option<T> {
         unsafe {
@@ -317,7 +317,7 @@ impl<'a,T> Iterator<T> for SmallVecMoveIterator<'a,T> {
 }
 
 #[unsafe_destructor]
-impl<'a,T> Drop for SmallVecMoveIterator<'a,T> {
+impl<'a, T: 'static> Drop for SmallVecMoveIterator<'a,T> {
     fn drop(&mut self) {
         // Destroy the remaining elements.
         for _ in *self {}
@@ -376,7 +376,7 @@ macro_rules! def_small_vector(
             }
         }
 
-        impl<T> SmallVec<T> for $name<T> {
+        impl<T: 'static> SmallVec<T> for $name<T> {
             fn inline_size(&self) -> uint {
                 $size
             }

@@ -16,9 +16,9 @@ use std::str::StrSlice;
 use time;
 use time::{now, Timespec};
 
-use ResponseHeaderCollection = http::headers::response::HeaderCollection;
-use RequestHeaderCollection = http::headers::request::HeaderCollection;
-use RequestHeader = http::headers::request::Header;
+use http::headers::response::HeaderCollection as ResponseHeaderCollection;
+use http::headers::request::HeaderCollection as RequestHeaderCollection;
+use http::headers::request::Header as RequestHeader;
 
 use http::client::{RequestWriter, NetworkStream};
 use http::headers::{HeaderConvertible, HeaderEnum, HeaderValueByteIterator};

@@ -84,7 +84,7 @@ pub struct Window {
     pub image_cache_task: ImageCacheTask,
     pub active_timers: Traceable<RefCell<HashMap<TimerId, TimerHandle>>>,
     next_timer_handle: Traceable<Cell<i32>>,
-    compositor: Untraceable<Box<ScriptListener>>,
+    compositor: Untraceable<Box<ScriptListener+'static>>,
     pub browser_context: Traceable<RefCell<Option<BrowserContext>>>,
     pub page: Rc<Page>,
     performance: Cell<Option<JS<Performance>>>,

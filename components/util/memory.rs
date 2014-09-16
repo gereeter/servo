@@ -12,6 +12,7 @@ use std::mem::size_of;
 #[cfg(target_os="linux")]
 use std::os::page_size;
 use std::ptr::mut_null;
+use std::time::duration::Duration;
 use task::spawn_named;
 #[cfg(target_os="macos")]
 use task_info::task_basic_info::{virtual_size,resident_size};
@@ -41,7 +42,7 @@ impl MemoryProfiler {
         let (chan, port) = channel();
         match period {
             Some(period) => {
-                let period = (period * 1000f64) as u64;
+                let period = Duration::milliseconds((period * 1000f64) as i64);
                 let chan = chan.clone();
                 spawn_named("Memory profiler timer", proc() {
                     loop {

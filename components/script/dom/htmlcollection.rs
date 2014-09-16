@@ -23,7 +23,7 @@ pub trait CollectionFilter {
     fn filter(&self, elem: &JSRef<Element>, root: &JSRef<Node>) -> bool;
 }
 
-impl<S: Encoder<E>, E> Encodable<S, E> for Box<CollectionFilter> {
+impl<S: Encoder<E>, E> Encodable<S, E> for Box<CollectionFilter+'static> {
     fn encode(&self, _s: &mut S) -> Result<(), E> {
         Ok(())
     }
@@ -32,7 +32,7 @@ impl<S: Encoder<E>, E> Encodable<S, E> for Box<CollectionFilter> {
 #[deriving(Encodable)]
 pub enum CollectionTypeId {
     Static(Vec<JS<Element>>),
-    Live(JS<Node>, Box<CollectionFilter>)
+    Live(JS<Node>, Box<CollectionFilter+'static>)
 }
 
 #[deriving(Encodable)]

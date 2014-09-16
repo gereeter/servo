@@ -138,7 +138,7 @@ pub trait VirtualMethods {
 /// method call on the trait object will invoke the corresponding method on the
 /// concrete type, propagating up the parent hierarchy unless otherwise
 /// interrupted.
-pub fn vtable_for<'a>(node: &'a JSRef<Node>) -> &'a VirtualMethods {
+pub fn vtable_for<'a>(node: &'a JSRef<Node>) -> &'a VirtualMethods + 'static {
     match node.type_id() {
         ElementNodeTypeId(HTMLAnchorElementTypeId) => {
             let element: &JSRef<HTMLAnchorElement> = HTMLAnchorElementCast::to_ref(node).unwrap();

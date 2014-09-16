@@ -28,8 +28,8 @@ use encoding::all::UTF_8;
 use encoding::label::encoding_from_whatwg_label;
 use encoding::types::{DecodeReplace, Encoding, EncodingRef, EncodeReplace};
 
-use ResponseHeaderCollection = http::headers::response::HeaderCollection;
-use RequestHeaderCollection = http::headers::request::HeaderCollection;
+use http::headers::response::HeaderCollection as ResponseHeaderCollection;
+use http::headers::request::HeaderCollection as RequestHeaderCollection;
 use http::headers::content_type::MediaType;
 use http::headers::{HeaderEnum, HeaderValueByteIterator};
 use http::headers::request::Header;
@@ -91,8 +91,8 @@ pub enum XHRProgress {
     TimeoutMsg
 }
 
-enum SyncOrAsync<'a, 'b> {
-    Sync(&'b JSRef<'a, XMLHttpRequest>),
+enum SyncOrAsync<'a> {
+    Sync(&'a JSRef<'a, XMLHttpRequest>),
     Async(TrustedXHRAddress, ScriptChan)
 }
 

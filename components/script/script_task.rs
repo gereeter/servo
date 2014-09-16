@@ -155,7 +155,7 @@ pub struct ScriptTask {
     /// For communicating load url messages to the constellation
     constellation_chan: ConstellationChan,
     /// A handle to the compositor for communicating ready state messages.
-    compositor: Box<ScriptListener>,
+    compositor: Box<ScriptListener+'static>,
 
     /// The JavaScript runtime.
     js_runtime: js::rust::rt,

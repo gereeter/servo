@@ -56,7 +56,7 @@ pub struct Page {
     pub layout_chan: Untraceable<LayoutChan>,
 
     /// A handle to perform RPC calls into the layout, quickly.
-    pub layout_rpc: Untraceable<Box<LayoutRPC>>,
+    pub layout_rpc: Untraceable<Box<LayoutRPC+'static>>,
 
     /// The port that we will use to join layout. If this is `None`, then layout is not running.
     pub layout_join_port: Untraceable<RefCell<Option<Receiver<()>>>>,
